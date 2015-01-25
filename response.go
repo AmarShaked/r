@@ -10,7 +10,7 @@ type Response struct {
 	StatusCode int
 	Status     string
 	Body       io.ReadCloser
-	Header	   http.Header 
+	Header     http.Header
 }
 
 func (r *Response) Text() string {
@@ -25,6 +25,6 @@ func (r *Response) Text() string {
 	return string(body)
 }
 
-func (r *Response) Headers(header string) {
-	
+func (r *Response) Headers(key string) string {
+	return r.Header.Get(key)
 }

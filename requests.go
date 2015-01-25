@@ -23,5 +23,5 @@ func Get(url string) (Response, error) {
 		StatusCode: resp.StatusCode,
 		Status:     resp.Status,
 		Body:       resp.Body,
-		Header: 	resp.Header}, nil
+		Header:     resp.Header}, nil
 }
