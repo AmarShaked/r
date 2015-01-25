@@ -6,22 +6,38 @@ import (
 	"net/http"
 )
 
-// A Request represents an HTTP request received by a server.
-type Request struct {
-	Headers map[string]string
-}
-
-func Get(url string) (Response, error) {
+func Get(url string) (*Response, error) {
 
 	resp, err := http.Get(url)
 
 	if err != nil {
-		return Response{}, err
+		return nil, err
 	}
 
-	return Response{
-		StatusCode: resp.StatusCode,
-		Status:     resp.Status,
-		Body:       resp.Body,
-		Header:     resp.Header}, nil
+	r := &Response{
+		StatusCode:       resp.StatusCode,
+		Status:           resp.Status,
+		Body:             resp.Body,
+		Header:           resp.Header,
+		Proto:            resp.Proto,
+		ProtoMajor:       resp.ProtoMajor,
+		ProtoMinor:       resp.ProtoMinor,
+		ContentLength:    resp.ContentLength,
+		TransferEncoding: resp.TransferEncoding,
+		Request:          resp.Request,
+		Close:            resp.Close,
+		Trailer:          resp.Trailer,
+		TLS:              resp.TLS}
+
+	err = bodyToText(r)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
+func Post(url string) {
+
 }
