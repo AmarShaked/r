@@ -20,7 +20,7 @@ func main() {
 	res, _ := requests.Get(url)
 
 	// Print the body as string
-	fmt.Println(res.Text)
+	fmt.Println(res.Text())
 
 	// Get the header
 	fmt.Println(res.Headers("content-type"))
