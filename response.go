@@ -23,10 +23,10 @@ type Response struct {
 	Trailer          http.Header
 	TLS              *tls.ConnectionState
 	Bytes            []byte
-	Text             string
+	BaseResponse     *http.Response
 }
 
-func bodyToText(r *Response) error {
+func bodyToBytes(r *Response) error {
 
 	defer r.Body.Close()
 	body, err := ioutil.ReadAll(r.Body)
@@ -36,15 +36,19 @@ func bodyToText(r *Response) error {
 	}
 
 	r.Bytes = body
-	r.Text = string(body)
 
 	return nil
+}
+
+func (r *Response) Text() string {
+	return string(r.Bytes)
 }
 
 func (r *Response) Headers(key string) string {
 	return r.Header.Get(key)
 }
 
+// Parses the JSON-encoded data and stores the result in the value pointed to by v.
 func (r *Response) Json(v interface{}) error {
 
 	err := json.Unmarshal(r.Bytes, v)
@@ -54,4 +58,17 @@ func (r *Response) Json(v interface{}) error {
 	}
 
 	return nil
+}
+
+// Get the cookie value by cookie name.
+func (r *Response) Cookies(name string) string {
+	cookies := r.BaseResponse.Cookies()
+
+	for _, c := range cookies {
+		if c.Name == name {
+			return c.Value
+		}
+	}
+
+	return ""
 }
