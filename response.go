@@ -26,6 +26,7 @@ type Response struct {
 	BaseResponse     *http.Response
 }
 
+// Convert the request body to bytes
 func bodyToBytes(r *Response) error {
 
 	defer r.Body.Close()
@@ -35,15 +36,18 @@ func bodyToBytes(r *Response) error {
 		return err
 	}
 
+	// Save the body for future usage
 	r.Bytes = body
 
 	return nil
 }
 
+// Get the response body as string
 func (r *Response) Text() string {
 	return string(r.Bytes)
 }
 
+// Get the header by name
 func (r *Response) Headers(key string) string {
 	return r.Header.Get(key)
 }
