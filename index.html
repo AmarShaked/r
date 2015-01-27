@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Requests by AmarShaked</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Requests</h1>
+        <p>HTTP library for easy Requests in Go language</p>
+
+        <p class="view"><a href="https://github.com/AmarShaked/requests">View the Project on GitHub <small>AmarShaked/requests</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/AmarShaked/requests/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/AmarShaked/requests/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/AmarShaked/requests">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="requests" class="anchor" href="#requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>requests</h1>
+
+<p>HTTP library for Go language</p>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<h3>
+<a id="make-a-request" class="anchor" href="#make-a-request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Make a Request</h3>
+
+<p>Making a request with Requests is very simple.
+Begin by installing the Requests package.</p>
+
+<div class="highlight highlight-go"><pre><span class="pl-k">go</span> get github.<span class="pl-vo">com</span>/AmarShaked/requests
+<span class="pl-k">import</span> <span class="pl-s1"><span class="pl-pds">"</span>github.com/AmarShaked/requests<span class="pl-pds">"</span></span></pre></div>
+
+<p>Now, let’s try to get a webpage. For this example, let’s get GitHub’s public timeline</p>
+
+<div class="highlight highlight-go"><pre><span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Get</span>(<span class="pl-s1"><span class="pl-pds">'</span>https://api.github.com/events<span class="pl-pds">'</span></span>)</pre></div>
+
+<p>Now, we have a Response (not a regular http.Response) object called r. We can get all the information we need from this object.
+For example:</p>
+
+<div class="highlight highlight-go"><pre>r.<span class="pl-vo">StatusCode</span> <span class="pl-c">// 200</span>
+r.<span class="pl-s3">Text</span>() <span class="pl-c">// Get the response body as string</span>
+r.<span class="pl-s3">Json</span>(&amp;jsonObject) <span class="pl-c">// Parse the json data and stores the result in the value pointed to by jsonObject.</span>
+r.<span class="pl-s3">Headers</span>(<span class="pl-s1"><span class="pl-pds">'</span>content-type<span class="pl-pds">'</span></span>) <span class="pl-c">// 'application/json'</span>
+r.<span class="pl-s3">Cookies</span>(<span class="pl-s1"><span class="pl-pds">'</span>key<span class="pl-pds">'</span></span>) <span class="pl-c">// Return a cookie value as string</span></pre></div>
+
+<h3>
+<a id="quick-requests" class="anchor" href="#quick-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick requests</h3>
+
+<p>You can send a quick requests of all HTTP requests types.</p>
+
+<p>GET, HEAD, OPTIONS are the easiest:</p>
+
+<div class="highlight highlight-go"><pre><span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Get</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/get<span class="pl-pds">'</span></span>)
+<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Options</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/get<span class="pl-pds">'</span></span>)
+<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Head</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/get<span class="pl-pds">'</span></span>)</pre></div>
+
+<p>POST, PUT, DELETE Usually contain form data:</p>
+
+<div class="highlight highlight-go"><pre><span class="pl-vo">data</span> <span class="pl-k">:=</span> <span class="pl-s">map</span>[<span class="pl-st">string</span>]<span class="pl-st">string</span>{<span class="pl-s1"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>shaked<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>test2<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>shaked2<span class="pl-pds">"</span></span>} <span class="pl-c">// "form": {"test": "shaked","test2": "shaked2"}</span>
+<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Post</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/post<span class="pl-pds">'</span></span>, data)
+<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Put</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/put<span class="pl-pds">'</span></span>, data)
+<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Delete</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/delete<span class="pl-pds">'</span></span>, data)</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/AmarShaked">AmarShaked</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
