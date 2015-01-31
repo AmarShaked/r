@@ -23,8 +23,8 @@ func (r *Request) Do() (*Response, error) {
 	var err error
 
 	b, e := prepareRequestBody(r.Body)
+
 	if e != nil {
-		// there was a problem marshaling the body
 		return nil, e
 	}
 
@@ -33,6 +33,8 @@ func (r *Request) Do() (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	req.Header = createHeaderObject(r.Headers)
 
 	if len(r.Auth) == 2 {
 		req.SetBasicAuth(r.Auth[0], r.Auth[1])
@@ -69,6 +71,16 @@ func (r *Request) Head() (*Response, error) {
 func (r *Request) Delete() (*Response, error) {
 	r.Method = "DELETE"
 	return r.Do()
+}
+
+func createHeaderObject(uh map[string]string) (http.Header) {
+	var h http.Header
+
+	for key, value := range(uh) {
+		h.Add(key, value)
+	}
+
+	return h
 }
 
 func prepareRequestBody(b interface{}) (io.Reader, error) {

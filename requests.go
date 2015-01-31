@@ -87,7 +87,7 @@ func responseHandler(resp *http.Response, err error) (*Response, error) {
 	return r, nil
 }
 
-// This function encode the map to formData
+// This function encode the map to formData or queryString
 // {"exs": "shaked", "exs2": "shaked2"} == "exs=shaked&exs2=shaked2"
 func encode(v map[string]string) string {
 
