@@ -1,6 +1,5 @@
-// Go lang http for humans
-// simple request powerfull response
-package requests
+// HTTP library for Go language
+package r
 
 import (
 	"bytes"

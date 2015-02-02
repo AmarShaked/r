@@ -1,17 +1,17 @@
-package requests
+package r
 
 import (
-	"net/http"
-	"io"
 	"bytes"
 	"encoding/json"
+	"io"
+	"net/http"
 	"strings"
 )
 
 // A Request represents an HTTP request received by a server.
 type Request struct {
 	Url         string
-	Method		string
+	Method      string
 	Body        interface{}
 	Headers     map[string]string
 	QueryString map[string]string
@@ -29,7 +29,7 @@ func (r *Request) Do() (*Response, error) {
 	}
 
 	req, err = http.NewRequest(r.Method, r.Url, b)
-	
+
 	if err != nil {
 		return nil, err
 	}
@@ -73,10 +73,10 @@ func (r *Request) Delete() (*Response, error) {
 	return r.Do()
 }
 
-func createHeaderObject(uh map[string]string) (http.Header) {
+func createHeaderObject(uh map[string]string) http.Header {
 	var h http.Header
 
-	for key, value := range(uh) {
+	for key, value := range uh {
 		h.Add(key, value)
 	}
 
@@ -105,4 +105,3 @@ func prepareRequestBody(b interface{}) (io.Reader, error) {
 		return nil, err
 	}
 }
-
