@@ -78,7 +78,7 @@ func responseHandler(resp *http.Response, err error) (*Response, error) {
 	r := setNewResponse(resp)
 
 	// Read the body and saveit as bytes
-	err = bodyToBytes(r)
+	err = responseBodyToBytes(r)
 
 	if err != nil {
 		return nil, err
@@ -117,18 +117,10 @@ func encode(v map[string]string) string {
 
 func setNewResponse(resp *http.Response) *Response {
 	return &Response{
-		BaseResponse:     resp,
-		StatusCode:       resp.StatusCode,
-		Status:           resp.Status,
-		Body:             resp.Body,
-		Header:           resp.Header,
-		Proto:            resp.Proto,
-		ProtoMajor:       resp.ProtoMajor,
-		ProtoMinor:       resp.ProtoMinor,
-		ContentLength:    resp.ContentLength,
-		TransferEncoding: resp.TransferEncoding,
-		Request:          resp.Request,
-		Close:            resp.Close,
-		Trailer:          resp.Trailer,
-		TLS:              resp.TLS}
+		BaseResponse: resp,
+		StatusCode:   resp.StatusCode,
+		Status:       resp.Status,
+		Proto:        resp.Proto,
+		Request:      resp.Request,
+	}
 }
