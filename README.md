@@ -1,5 +1,6 @@
 # r
-HTTP library for Go language
+Powerful package for quick and simple HTTP requests in Go language.
+
 
 ## Getting Started
 

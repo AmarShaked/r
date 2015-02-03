@@ -1,4 +1,17 @@
-// HTTP library for Go language
+// Package r is powerful package for quick and simple HTTP requests in Go language.
+//
+// For a full guide visit https://github.com/AmarShaked/r
+// 	package main
+//
+//	import (
+//		"github.com/AmarShaked/r"
+//		"fmt"
+//	)
+//
+//	func main() {
+//		res, _ := r.Get('https://api.github.com/events')
+//		fmt.Println(res.Text())
+//	}
 package r
 
 import (
@@ -9,49 +22,53 @@ import (
 	"strings"
 )
 
+// The DefaultClient is the client that send all the requests
 var DefaultClient = &http.Client{}
 
-// Get send a quick GET http request.
+// Get send a simple GET http request.
 func Get(url string) (*Response, error) {
 
-	return responseHandler(DefaultClient.Get(url))
+	// Used the default Get function of the DefaultClient
+	return httpResponseHandler(DefaultClient.Get(url))
 }
 
-// Post send a quick POST http request.
+// Post send a simple POST http request.
+// Post get the map of strings and used it like PostForm.
 func Post(url string, data map[string]string) (*Response, error) {
 
-	return responseHandler(DefaultClient.Post(url, "application/x-www-form-urlencoded", strings.NewReader(encode(data))))
+	return httpResponseHandler(DefaultClient.Post(url, "application/x-www-form-urlencoded", strings.NewReader(encode(data))))
 }
 
-// Head send a quick HEAD http request.
+// Head send a simple HEAD http request.
 func Head(url string) (*Response, error) {
 
-	return responseHandler(DefaultClient.Head(url))
+	return httpResponseHandler(DefaultClient.Head(url))
 }
 
-// Put send a quick PUT http request.
-func Put(url string, data map[string]string) (*Response, error) {
+// Put send a simple PUT http request.
+// Put send request with body
+func Put(url string, body string) (*Response, error) {
 
-	req, err := http.NewRequest("PUT", url, strings.NewReader(encode(data)))
+	req, err := http.NewRequest("PUT", url, strings.NewReader(body))
 
 	if err != nil {
 		return nil, err
 	}
 
-	return responseHandler(DefaultClient.Do(req))
-
+	return httpResponseHandler(DefaultClient.Do(req))
 }
 
 // Delete send a quick DELETE http request.
-func Delete(url string, data map[string]string) (*Response, error) {
+// Delete send a body with the request.
+func Delete(url string, body string) (*Response, error) {
 
-	req, err := http.NewRequest("DELETE", url, strings.NewReader(encode(data)))
+	req, err := http.NewRequest("DELETE", url, strings.NewReader(body))
 
 	if err != nil {
 		return nil, err
 	}
 
-	return responseHandler(DefaultClient.Do(req))
+	return httpResponseHandler(DefaultClient.Do(req))
 }
 
 // Options send a quick OPTIONS http request.
@@ -63,27 +80,39 @@ func Options(url string) (*Response, error) {
 		return nil, err
 	}
 
-	return responseHandler(DefaultClient.Do(req))
+	return httpResponseHandler(DefaultClient.Do(req))
 }
 
-// This function handle all the logic after we get a http.Request.
-// Handle all the errors and set the new Response object
-func responseHandler(resp *http.Response, err error) (*Response, error) {
+// NewResponse get a http.Response and return a Response type.
+func NewResponse(resp *http.Response) (*Response, error) {
 
-	if err != nil {
-		return nil, err
+	r := &Response{
+		BaseResponse: resp,
+		StatusCode:   resp.StatusCode,
+		Status:       resp.Status,
+		Proto:        resp.Proto,
+		Request:      resp.Request,
 	}
 
-	r := setNewResponse(resp)
-
-	// Read the body and saveit as bytes
-	err = responseBodyToBytes(r)
+	// Read the body and save it as bytes
+	err := responseBodyToBytes(r)
 
 	if err != nil {
 		return nil, err
 	}
 
 	return r, nil
+}
+
+// httpResponseHandler handle all the logic after we get a http.Request.
+// Handle all the errors and set the new Response object
+func httpResponseHandler(resp *http.Response, err error) (*Response, error) {
+
+	if err != nil {
+		return nil, err
+	}
+
+	return NewResponse(resp)
 }
 
 // This function encode the map to formData or queryString
@@ -112,14 +141,4 @@ func encode(v map[string]string) string {
 
 	}
 	return buf.String()
-}
-
-func setNewResponse(resp *http.Response) *Response {
-	return &Response{
-		BaseResponse: resp,
-		StatusCode:   resp.StatusCode,
-		Status:       resp.Status,
-		Proto:        resp.Proto,
-		Request:      resp.Request,
-	}
 }

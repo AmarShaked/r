@@ -1,4 +1,3 @@
-// Copyright 2015 Shaked Amar.
 package r
 
 import (

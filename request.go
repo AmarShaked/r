@@ -40,7 +40,7 @@ func (r *Request) Do() (*Response, error) {
 		req.SetBasicAuth(r.Auth[0], r.Auth[1])
 	}
 
-	return responseHandler(DefaultClient.Do(req))
+	return httpResponseHandler(DefaultClient.Do(req))
 }
 
 func (r *Request) Get() (*Response, error) {
