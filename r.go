@@ -83,27 +83,6 @@ func Options(url string) (*Response, error) {
 	return httpResponseHandler(DefaultClient.Do(req))
 }
 
-// NewResponse get a http.Response and return a Response type.
-func NewResponse(resp *http.Response) (*Response, error) {
-
-	r := &Response{
-		BaseResponse: resp,
-		StatusCode:   resp.StatusCode,
-		Status:       resp.Status,
-		Proto:        resp.Proto,
-		Request:      resp.Request,
-	}
-
-	// Read the body and save it as bytes
-	err := responseBodyToBytes(r)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return r, nil
-}
-
 // httpResponseHandler handle all the logic after we get a http.Request.
 // Handle all the errors and set the new Response object
 func httpResponseHandler(resp *http.Response, err error) (*Response, error) {
