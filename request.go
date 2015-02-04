@@ -10,12 +10,12 @@ import (
 
 // A Request represents an HTTP request received by a server.
 type Request struct {
-	Url         string
-	Method      string
-	Body        interface{}
-	Headers     map[string]string
-	QueryString map[string]string
-	Auth        [2]string
+	Url     string
+	Method  string
+	Body    interface{}
+	Headers map[string]string
+	// TODO: QueryString map[string]string
+	Auth [2]string
 }
 
 func (r *Request) Do() (*Response, error) {
@@ -34,7 +34,7 @@ func (r *Request) Do() (*Response, error) {
 		return nil, err
 	}
 
-	req.Header = createHeaderObject(r.Headers)
+	req.Header = createHeaderType(r.Headers)
 
 	if len(r.Auth) == 2 {
 		req.SetBasicAuth(r.Auth[0], r.Auth[1])
@@ -73,7 +73,7 @@ func (r *Request) Delete() (*Response, error) {
 	return r.Do()
 }
 
-func createHeaderObject(uh map[string]string) http.Header {
+func createHeaderType(uh map[string]string) http.Header {
 	var h http.Header
 
 	for key, value := range uh {
@@ -83,6 +83,7 @@ func createHeaderObject(uh map[string]string) http.Header {
 	return h
 }
 
+// Get this function from the goReq package
 func prepareRequestBody(b interface{}) (io.Reader, error) {
 	switch b.(type) {
 	case string:
