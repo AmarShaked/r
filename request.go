@@ -10,14 +10,22 @@ import (
 
 // A Request represents an HTTP request received by a server.
 type Request struct {
-	Url     string
-	Method  string
+	Url    string
+	Method string
+
+	// Body gets string, bytes and io.Reader for other types
+	// try to parse as Json.
 	Body    interface{}
 	Headers map[string]string
+
 	// TODO: QueryString map[string]string
-	Auth [2]string
+
+	// Auth get list of strings with the username and password
+	// for basic auth header.
+	Auth []string
 }
 
+// Do sends HTTP request and return a Response type.
 func (r *Request) Do() (*Response, error) {
 	var req *http.Request
 	var err error
@@ -34,11 +42,11 @@ func (r *Request) Do() (*Response, error) {
 		return nil, err
 	}
 
-	req.Header = createHeaderType(r.Headers)
+	// Convert from map to header type.
+	createHeaderType(r.Headers, req)
 
-	if len(r.Auth) == 2 {
-		req.SetBasicAuth(r.Auth[0], r.Auth[1])
-	}
+	// Parse the auth value to basic authatication
+	parseAuthValue(r.Auth, req)
 
 	return httpResponseHandler(DefaultClient.Do(req))
 }
@@ -73,14 +81,18 @@ func (r *Request) Delete() (*Response, error) {
 	return r.Do()
 }
 
-func createHeaderType(uh map[string]string) http.Header {
-	var h http.Header
+func createHeaderType(uh map[string]string, req *http.Request) {
 
 	for key, value := range uh {
-		h.Add(key, value)
+		req.Header.Add(key, value)
 	}
+}
 
-	return h
+func parseAuthValue(authSlice []string, req *http.Request) {
+
+	if len(authSlice) == 2 {
+		req.SetBasicAuth(authSlice[0], authSlice[1])
+	}
 }
 
 // Get this function from the goReq package
