@@ -47,7 +47,7 @@ func NewResponse(resp *http.Response) (*Response, error) {
 		Url: resp.Request.URL.String(),
 
 		// Return the status code as boolean value.
-		Ok: resp.StatusCode >= 400,
+		Ok: resp.StatusCode < 400,
 	}
 
 	// Read the body and save it as bytes
