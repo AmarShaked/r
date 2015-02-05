@@ -9,11 +9,11 @@ Powerful package for quick and simple HTTP requests in Go language.
  * [Getting Started](#getting-started) 
  * [Quick requests](#quick-requests)
  * [Advance requests](#advance-requests)
-   * [Basic advance request](#basic-advance-request)
-   * [Builtin functions](#builtin-functions)
-   * [Basic authentication](#basic-authentication)
-   * [Request body](#body)
-   * [Headers](#headers)
+    * [Basic advance request](#basic-advance-request)
+    * [Builtin functions](#builtin-functions)
+    * [Basic authentication](#basic-authentication)
+    * [Request body](#body)
+    * [Headers](#headers)
 * [Contribute and things ToDo](#contribute-and-things-todo)
 
 
