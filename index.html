@@ -65,10 +65,10 @@
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a href="https://github.com/AmarShaked/r/zipball/master" class="btn btn-default btn-lg"><span class="network-name">Zip</span></a>
+                                <a href="https://github.com/AmarShaked/r/zipball/master" class="btn btn-default btn-lg"><i class="fa fa-cloud-download fa-fw"></i><span class="network-name"> Zip</span></a>
                             </li>
                             <li>
-                                <a href="https://github.com/AmarShaked/r/tarball/master" class="btn btn-default btn-lg"><span class="network-name">TAR Ball</span></a>
+                                <a href="https://github.com/AmarShaked/r/tarball/master" class="btn btn-default btn-lg"><i class="fa fa-cloud-download fa-fw"></i><span class="network-name"> TAR Ball</span></a>
                             </li>
                             <li>
                                 <a href="https://github.com/AmarShaked/r" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
@@ -135,7 +135,7 @@ func main() {
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Quick requests</h2>
                     <p class="lead">
-                        
+                        Send a quick requests without speical settings.
                     </p>
                 </div>
                 <div class="col-lg-6 col-sm-pull-6  col-sm-6">
@@ -170,7 +170,7 @@ res, _ := r.Post('http://httpbin.org/post', data)
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Advance requests</h2>
                     <p class="lead">
-                        
+                        For more complex requests
                     </p>
                 </div>
                 <div class="col-lg-6 col-lg-offset-1 col-sm-6">
@@ -186,7 +186,7 @@ func main() {
         Url:     "http://httpbin.org/post",
         Body:    "Hello, World!",
         Headers: map[string]string{"Cool-Header": "Test content"},
-        Auth:    [2]string{"shaked", "pass"},
+        Auth:    []string{"shaked", "pass"},
     }
 
     res, err := req.Do()
