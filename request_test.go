@@ -26,6 +26,22 @@ func Test_Method_Get(t *testing.T) {
 	expect(t, res.Text(), "GET")
 }
 
+func Test_Method_Get_Direct(t *testing.T) {
+
+	server := startTestServer()
+	defer server.Close()
+
+	r := &Request{Url: server.URL}
+
+	res, err := r.Get()
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	expect(t, res.Text(), "GET")
+}
+
 func Test_Method_Post(t *testing.T) {
 
 	server := startTestServer()
