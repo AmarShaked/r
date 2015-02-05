@@ -1,97 +1,261 @@
-<!doctype html>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Requests by AmarShaked</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>r - simple requests package</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/solarized_light.css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>r</h1>
-        <p>HTTP library for easy Requests in Go language</p>
 
-        <p class="view"><a href="https://github.com/AmarShaked/requests">View the Project on GitHub <small>AmarShaked/requests</small></a></p>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="#">r - simple requests package</a>
+            </div>
+        </div>
+        <!-- /.container -->
+    </nav>
 
 
-        <ul>
-          <li><a href="https://github.com/AmarShaked/requests/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/AmarShaked/requests/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/AmarShaked/requests">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a id="requests" class="anchor" href="#requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>requests</h1>
+    <!-- Header -->
+    <a name="about"></a>
+    <div class="intro-header">
+        <div class="container">
 
-<p>HTTP library for Go language</p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>r</h1>
+                        <h3>Powerful package for quick and simple HTTP requests in Go language.
+</h3>
+                        <hr class="intro-divider">
+                        <ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="https://github.com/AmarShaked/r/zipball/master" class="btn btn-default btn-lg"><span class="network-name">Zip</span></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/AmarShaked/r/tarball/master" class="btn btn-default btn-lg"><span class="network-name">TAR Ball</span></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/AmarShaked/r" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-<h2>
-<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+        </div>
+        <!-- /.container -->
 
-<h3>
-<a id="make-a-request" class="anchor" href="#make-a-request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Make a Request</h3>
-
-<p>Making a request with Requests is very simple.
-Begin by installing the Requests package.</p>
-
-<div class="highlight highlight-go"><pre><span class="pl-k">go</span> get github.<span class="pl-vo">com</span>/AmarShaked/requests
-<span class="pl-k">import</span> <span class="pl-s1"><span class="pl-pds">"</span>github.com/AmarShaked/requests<span class="pl-pds">"</span></span></pre></div>
-
-<p>Now, let’s try to get a webpage. For this example, let’s get GitHub’s public timeline</p>
-
-<div class="highlight highlight-go"><pre><span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Get</span>(<span class="pl-s1"><span class="pl-pds">'</span>https://api.github.com/events<span class="pl-pds">'</span></span>)</pre></div>
-
-<p>Now, we have a Response (not a regular http.Response) object called r. We can get all the information we need from this object.
-For example:</p>
-
-<div class="highlight highlight-go"><pre>r.<span class="pl-vo">StatusCode</span> <span class="pl-c">// 200</span>
-r.<span class="pl-s3">Text</span>() <span class="pl-c">// Get the response body as string</span>
-r.<span class="pl-s3">Json</span>(&amp;jsonObject) <span class="pl-c">// Parse the json data and stores the result in the value pointed to by jsonObject.</span>
-r.<span class="pl-s3">Headers</span>(<span class="pl-s1"><span class="pl-pds">'</span>content-type<span class="pl-pds">'</span></span>) <span class="pl-c">// 'application/json'</span>
-r.<span class="pl-s3">Cookies</span>(<span class="pl-s1"><span class="pl-pds">'</span>key<span class="pl-pds">'</span></span>) <span class="pl-c">// Return a cookie value as string</span></pre></div>
-
-<h3>
-<a id="quick-requests" class="anchor" href="#quick-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick requests</h3>
-
-<p>You can send a quick requests of all HTTP requests types.</p>
-
-<p>GET, HEAD, OPTIONS are the easiest:</p>
-
-<div class="highlight highlight-go"><pre><span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Get</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/get<span class="pl-pds">'</span></span>)
-<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Options</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/get<span class="pl-pds">'</span></span>)
-<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Head</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/get<span class="pl-pds">'</span></span>)</pre></div>
-
-<p>POST, PUT, DELETE Usually contain form data:</p>
-
-<div class="highlight highlight-go"><pre><span class="pl-vo">data</span> <span class="pl-k">:=</span> <span class="pl-s">map</span>[<span class="pl-st">string</span>]<span class="pl-st">string</span>{<span class="pl-s1"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>shaked<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>test2<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>shaked2<span class="pl-pds">"</span></span>} <span class="pl-c">// "form": {"test": "shaked","test2": "shaked2"}</span>
-<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Post</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/post<span class="pl-pds">'</span></span>, data)
-<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Put</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/put<span class="pl-pds">'</span></span>, data)
-<span class="pl-vo">r</span>, <span class="pl-vo">_</span> <span class="pl-k">:=</span> requests.<span class="pl-s3">Delete</span>(<span class="pl-s1"><span class="pl-pds">'</span>http://httpbin.org/delete<span class="pl-pds">'</span></span>, data)</pre></div>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/AmarShaked">AmarShaked</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-59016820-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+    <!-- /.intro-header -->
 
-  </body>
+    <!-- Page Content -->
+
+	<a  name="services"></a>
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Simple &<br>Readable</h2>
+                    <p class="lead">'r' simplifies your work with the things that you usually do with requests.
+Things like getting the response body, headers, cookies, and even parsing Json, become simple tasks.</p>
+                </div>
+                <div class="col-lg-6 col-lg-offset-1 col-sm-6">
+<pre>
+<code class="Go">
+package main
+
+import "github.com/AmarShaked/r"
+
+func main() {
+    res, _ := r.Get('https://api.github.com/events')
+
+    res.Text()
+    res.Headers('content-type')
+    res.Cookies('key')
+    res.Json(&jsonValue)
+}
+
+</code>
+</pre>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Quick requests</h2>
+                    <p class="lead">
+                        
+                    </p>
+                </div>
+                <div class="col-lg-6 col-sm-pull-6  col-sm-6">
+<pre>
+<code class="Go">
+res, _ := r.Get('http://httpbin.org/get')
+res, _ := r.Options('http://httpbin.org/get')
+res, _ := r.Head('http://httpbin.org/get')
+res, _ := r.Put('http://httpbin.org/put', "Cool data")
+res, _ := r.Delete('http://httpbin.org/delete', "data")
+
+data := {"test": "shaked", "test2": "shaked2"}
+res, _ := r.Post('http://httpbin.org/post', data)
+
+</code>
+</pre>                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Advance requests</h2>
+                    <p class="lead">
+                        
+                    </p>
+                </div>
+                <div class="col-lg-6 col-lg-offset-1 col-sm-6">
+<pre>
+<code class="Go">
+package main
+
+import "github.com/AmarShaked/r"
+
+func main() {
+   req := r.Request{
+        Method:  "POST",
+        Url:     "http://httpbin.org/post",
+        Body:    "Hello, World!",
+        Headers: map[string]string{"Cool-Header": "Test content"},
+        Auth:    [2]string{"shaked", "pass"},
+    }
+
+    res, err := req.Do()
+}
+
+</code>
+</pre>                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+	<a  name="contact"></a>
+    <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>For full documentation and contribute:</h3>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://github.com/AmarShaked/r" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright text-muted small">Copyright &copy; Shaked Amar 2015.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scale.fix.js"></script>
+    <script src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-59016820-1");
+            pageTracker._trackPageview();
+        } catch(err) {}
+    </script>
+
+</body>
+
 </html>
