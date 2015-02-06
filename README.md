@@ -1,4 +1,5 @@
-# r
+# r [![GoDoc](http://godoc.org/github.com/AmarShaked/r?status.png)](http://godoc.org/github.com/AmarShaked/r)
+
 Powerful package for quick and simple HTTP requests in Go language.
 
 ## Table of Contents
