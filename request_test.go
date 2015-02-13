@@ -187,3 +187,18 @@ func Test_Request_Auth(t *testing.T) {
 	expect(t, user, "test")
 	expect(t, pass, "test")
 }
+
+func Test_Request_UserAgent(t *testing.T) {
+	server := startTestServer()
+	defer server.Close()
+
+	r := &Request{Method: "GET", Url: server.URL, UserAgent: "Cool one"}
+
+	res, err := r.Do()
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	expect(t, res.Request.UserAgent(), "Cool one")
+}
