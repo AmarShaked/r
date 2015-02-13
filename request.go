@@ -10,8 +10,9 @@ import (
 
 // A Request represents an HTTP request received by a server.
 type Request struct {
-	Url    string
-	Method string
+	Url       string
+	Method    string
+	UserAgent string
 
 	// Body gets string, bytes and io.Reader for other types
 	// try to parse as Json.
@@ -42,8 +43,12 @@ func (r *Request) Do() (*Response, error) {
 		return nil, err
 	}
 
+	if r.UserAgent != "" {
+		req.Header.Add("User-Agent", r.UserAgent)
+	}
+
 	// Convert from map to header type.
-	createHeaderType(r.Headers, req)
+	createBasicHeaderType(r.Headers, req)
 
 	// Parse the auth value to basic authatication
 	parseAuthValue(r.Auth, req)
@@ -81,7 +86,7 @@ func (r *Request) Delete() (*Response, error) {
 	return r.Do()
 }
 
-func createHeaderType(uh map[string]string, req *http.Request) {
+func createBasicHeaderType(uh map[string]string, req *http.Request) {
 
 	for key, value := range uh {
 		req.Header.Add(key, value)
